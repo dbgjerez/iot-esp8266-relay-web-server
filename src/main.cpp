@@ -1,5 +1,8 @@
 #include <Arduino.h>
 #include "ESP8266WiFi.h"
+#include <ESPAsyncWebServer.h>
+
+AsyncWebServer server(80);
 
 #define RELAY_PIN D2
 #define DELAY 1000
@@ -18,6 +21,13 @@ void setup() {
 
   // Print ESP8266 Local IP Address
   Serial.println(WiFi.localIP());
+
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+        request->send(200, "text/plain", "Hello, world");
+    });
+  
+  server.begin();
+
 }
 
 void loop() {
