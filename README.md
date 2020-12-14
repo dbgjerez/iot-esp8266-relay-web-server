@@ -2,7 +2,7 @@
 
 ## Configuration
 ```bash
-# Unix (bash, zsh)
+# Unix 
 export WIFI_SSID="your ssid here"
 export WIFI_PASSWORD="your password here"
 
