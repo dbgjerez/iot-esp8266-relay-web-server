@@ -23,15 +23,19 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(200, "text/plain", "Hello, world");
+    String mode = request -> getParam("mode")->value();
+    if ( mode == "on" ){
+      digitalWrite(RELAY_PIN, LOW);
+      request->send(200, "text/plain", "ON");
+    } else {
+      digitalWrite(RELAY_PIN, HIGH);
+      request->send(200, "text/plain", "OFF");
+    }
+        
     });
   
   server.begin();
 
 }
 
-void loop() {
-  delay(DELAY);
-
-  digitalWrite(RELAY_PIN, HIGH);
-}
+void loop() {}
